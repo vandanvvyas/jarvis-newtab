@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Tab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-accent="arc">
+  <canvas id="bg"></canvas>
+  <div class="scan"></div>
+  <div class="vignette"></div>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <header class="topbar">
+    <button id="btnSettings" class="icon-btn" aria-label="Settings" title="Settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+    <div class="status"><span class="dot"></span>J.A.R.V.I.S. · ONLINE<span id="cloudChip" class="cloud-chip"></span></div>
+    <div class="apps-wrap">
+      <button id="btnApps" class="icon-btn" aria-label="Google apps" aria-expanded="false" title="Google apps">
+        <svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><circle cx="5" cy="5" r="1.9"/><circle cx="12" cy="5" r="1.9"/><circle cx="19" cy="5" r="1.9"/><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/><circle cx="5" cy="19" r="1.9"/><circle cx="12" cy="19" r="1.9"/><circle cx="19" cy="19" r="1.9"/></svg>
+      </button>
+      <div id="appsMenu" class="apps-menu glass" hidden>
+        <div class="apps-head">
+          <span>Google apps</span>
+          <a href="https://accounts.google.com/" target="_blank" rel="noopener" class="go">Sign in / Switch account ↗</a>
+        </div>
+        <div id="appsGrid" class="apps-grid"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="col left">
+      <article class="glass card" id="todoCard">
+        <div class="card-head">
+          <h2>Task Queue</h2>
+          <span id="todoCount" class="chip">0 left</span>
+        </div>
+        <label class="add">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          <input id="todoInput" type="text" placeholder="Type a task, Enter to add. Add “deadline 28 Oct 5pm” for an alert" autocomplete="off">
+        </label>
+        <ul id="todoList" class="todo-list"></ul>
+        <div class="card-foot">
+          <button id="clearDone" class="text-btn">Clear completed</button>
+        </div>
+      </article>
+    </aside>
+    <div class="center">
+    <section class="hero">
+      <div class="reactor" id="reactor" title="Click me">
+        <div class="core"></div>
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <circle class="ring cw-slow"  cx="200" cy="200" r="192" stroke="var(--accent)" stroke-width="6" stroke-dasharray="1 9" opacity=".55"/>
+          <circle class="ring ccw-med"  cx="200" cy="200" r="174" stroke="var(--accent)" stroke-width="3" stroke-dasharray="70 22 12 22" opacity=".8"/>
+          <circle class="ring"          cx="200" cy="200" r="154" stroke="var(--accent)" stroke-width="1" opacity=".35"/>
+          <circle class="ring cw-fast"  cx="200" cy="200" r="136" stroke="var(--accent-2)" stroke-width="4" stroke-dasharray="110 50" stroke-linecap="round" opacity=".9"/>
+          <circle class="ring ccw-slow" cx="200" cy="200" r="116" stroke="var(--accent)" stroke-width="2" stroke-dasharray="2 7" opacity=".6"/>
+        </svg>
+        <div class="clock-wrap">
+          <div class="time-row">
+            <span id="time" class="time">--:--</span>
+            <span class="side"><span id="sec" class="sec">--</span><span id="ampm" class="ampm"></span></span>
+          </div>
+          <div id="date" class="date"></div>
+        </div>
+      </div>
+      <p id="greeting" class="greeting"></p>
+      <p id="subline" class="subline"></p>
+    </section>
+
+    <nav class="tabs" id="tabs" aria-label="Quick access"></nav>
+
+    </div>
+    <aside class="col right">
+      <article class="glass card" id="remCard">
+        <div class="card-head">
+          <h2>Daily Protocol</h2>
+          <span id="remTimeChip" class="chip">14:45</span>
+        </div>
+        <p id="remStatus" class="rem-status"></p>
+        <ul id="remList" class="rem-list"></ul>
+        <h3 id="dlHead" class="sub-head" hidden>Deadlines due</h3>
+        <ul id="dlList" class="rem-list"></ul>
+        <p id="waStatus" class="wa"></p>
+        <div class="card-foot">
+          <button id="testAlert" class="text-btn">Send test alert</button>
+        </div>
+      </article>
+    </aside>
+  </main>
+
+  <dialog id="linkDlg" class="glass">
+    <form method="dialog" id="linkForm">
+      <h2>Add link</h2>
+      <label>Name<input id="lName" type="text" maxlength="20" placeholder="e.g. ChatGPT"></label>
+      <label>Link<input id="lUrl" type="text" required placeholder="https://example.com"></label>
+      <p class="hint">Right-click a saved link to remove it.</p>
+      <div class="dlg-actions">
+        <button type="button" id="lCancel" class="text-btn">Cancel</button>
+        <button type="submit" class="pill-btn">Add</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="settings" class="glass">
+    <form method="dialog" id="settingsForm">
+      <h2>Settings</h2>
+      <label>Your name / title<input id="sName" type="text" maxlength="24"></label>
+      <label>Reminder time<input id="sTime" type="time" required></label>
+      <label>Repeat alert every (minutes)<input id="sNag" type="number" min="1" max="60"></label>
+      <label>Time format
+        <select id="sHour"><option value="12">12-hour</option><option value="24">24-hour</option></select>
+      </label>
+      <label>DR Google Sheet link<input id="sSheet" type="url" placeholder="https://docs.google.com/spreadsheets/d/..."></label>
+      <label>Extra WhatsApp chat to watch (optional)<input id="sWa" type="text" maxlength="40" placeholder="Leave empty = only “Message yourself”"></label>
+      <label>Theme
+        <select id="sAccent"><option value="arc">Arc Reactor (cyan)</option><option value="mark">Mark III (gold &amp; red)</option></select>
+      </label>
+      <fieldset class="cloud">
+        <legend>☁ Cloud sync (optional)</legend>
+        <p class="hint">Shares tasks, links, settings and daily ticks between your personal and work Chrome profiles through a private GitHub Gist. Leave empty to keep everything on this profile only.</p>
+        <label>GitHub token (classic, “gist” scope only)<input id="cToken" type="password" autocomplete="off" placeholder="ghp_…"></label>
+        <label>Passphrase (optional, encrypts the synced data)<input id="cPass" type="password" autocomplete="off"></label>
+        <div class="cloud-row"><button type="button" id="cSync" class="text-btn">Sync now</button><span id="cStatus" class="hint"></span></div>
+      </fieldset>
+      <div class="dlg-actions">
+        <button type="button" id="sCancel" class="text-btn">Cancel</button>
+        <button type="submit" id="sSave" class="pill-btn">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="deadline.js"></script>
+  <script src="storage.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
